@@ -1,0 +1,636 @@
+/* main/static/css/style.css - Анимации с четким отображением (без мутности) */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #1f2937;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Анимация появления страницы */
+main {
+    animation: fadeInUp 0.4s ease-out;
+    will-change: opacity, transform;
+    backface-visibility: hidden;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== Шапка сайта ========== */
+header {
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+    color: white;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* ===== ЛОГОТИП - ИСПРАВЛЕН (без мутности) ===== */
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    transition: transform 0.2s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+.logo:hover {
+    transform: scale(1.02);
+}
+
+.logo-text {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-sub {
+    font-size: 0.8rem;
+    font-weight: normal;
+    opacity: 0.9;
+    letter-spacing: 0.5px;
+}
+
+/* ========== Навигация ========== */
+nav {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Гамбургер-меню */
+.hamburger {
+    display: none;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+}
+
+.hamburger:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* Кнопка для слабовидящих */
+.accessibility-btn {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 2rem;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.accessibility-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.03);
+}
+
+/* ========== Режим для слабовидящих ========== */
+body.high-contrast {
+    background-color: black !important;
+    color: white !important;
+}
+
+body.high-contrast * {
+    border-color: white !important;
+}
+
+body.high-contrast a {
+    color: yellow !important;
+    text-decoration: underline !important;
+}
+
+body.high-contrast button,
+body.high-contrast .btn {
+    background-color: #333 !important;
+    color: yellow !important;
+}
+
+body.large-text {
+    font-size: 1.2rem;
+}
+
+body.large-text p,
+body.large-text li,
+body.large-text span {
+    font-size: 1.2rem;
+}
+
+body.large-text h1 {
+    font-size: 2rem;
+}
+
+body.large-text h2 {
+    font-size: 1.75rem;
+}
+
+/* ========== Главный контент ========== */
+main {
+    min-height: 60vh;
+    padding: 2rem 0;
+}
+
+/* ========== Слайдер ========== */
+.slider-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+.slide {
+    min-width: 100%;
+    position: relative;
+}
+
+.slide img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.slide:hover img {
+    transform: scale(1.02);
+}
+
+.slide-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+.slide-caption h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: all 0.2s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.slider-btn:hover {
+    background: rgba(0,0,0,0.8);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev {
+    left: 20px;
+}
+
+.next {
+    right: 20px;
+}
+
+/* ========== Заголовки секций ========== */
+.section-title {
+    font-size: 2rem;
+    margin: 2rem 0 1.5rem 0;
+    color: #1e40af;
+    position: relative;
+    display: inline-block;
+    font-weight: 700;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #fbbf24, #f59e0b);
+    border-radius: 2px;
+}
+
+/* ========== Сетка новостей ========== */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.news-card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.news-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15);
+}
+
+.news-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.news-card:hover img {
+    transform: scale(1.03);
+}
+
+.news-content {
+    padding: 1.25rem;
+}
+
+.news-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #1e40af;
+}
+
+.news-date {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.read-more {
+    color: #f59e0b;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    transition: gap 0.2s;
+}
+
+.read-more:hover {
+    gap: 0.5rem;
+}
+
+/* ========== Карточки учителей ========== */
+.teachers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.teacher-card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.teacher-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15);
+}
+
+.teacher-photo {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.teacher-card:hover .teacher-photo {
+    transform: scale(1.03);
+}
+
+.teacher-info {
+    padding: 1.25rem;
+}
+
+.teacher-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #1e40af;
+}
+
+.teacher-position {
+    color: #f59e0b;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+/* ========== Формы ========== */
+.form-container {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #1e40af;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.btn {
+    background: linear-gradient(135deg, #1e40af, #1e3a8a);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #1e3a8a, #172554);
+    transform: translateY(-2px);
+}
+
+/* ========== Карточки подразделов ========== */
+.subsections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.subsection-card {
+    display: block;
+    padding: 1rem 1.25rem;
+    background: white;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    color: #1e40af;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.subsection-card:hover {
+    background: #1e40af;
+    color: white;
+    transform: translateX(5px);
+}
+
+/* ========== Подвал ========== */
+footer {
+    background: #1f2937;
+    color: #9ca3af;
+    text-align: center;
+    padding: 2.5rem 0;
+    margin-top: 3rem;
+}
+
+footer p {
+    margin: 0.5rem 0;
+}
+
+footer a {
+    color: #fbbf24;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+footer a:hover {
+    color: #f59e0b;
+}
+
+/* ========== Адаптивность ========== */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    nav {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    nav.active {
+        display: flex;
+    }
+
+    .news-grid,
+    .teachers-grid,
+    .subsections-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .slide img {
+        height: 250px;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .logo-sub {
+        font-size: 0.7rem;
+    }
+
+    .slider-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+}
+
+/* ========== Кнопка входа для администратора ========== */
+.admin-link {
+    display: inline-block;
+    background-color: #374151;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.admin-link:hover {
+    background-color: #1e40af;
+    transform: translateY(-2px);
+}
+
+/* ========== Ссылки в разделе "Сведения об ОО" ========== */
+.info-link {
+    display: block;
+    padding: 1rem;
+    background: white;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: #1e40af;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.info-link:hover {
+    background: #1e40af;
+    color: white;
+    transform: translateX(5px);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1e40af;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #1e3a8a;
+}

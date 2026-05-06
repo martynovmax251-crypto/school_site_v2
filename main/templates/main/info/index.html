@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Сведения об образовательной организации - Школа №141{% endblock %}
+
+{% block content %}
+<h1 class="section-title">Сведения об образовательной организации</h1>
+
+<div class="subsections-grid">
+    {% for section in sections %}
+        <a href="{{ section.get_absolute_url }}" class="subsection-card">
+            📄 {{ section.title }}
+        </a>
+    {% empty %}
+        <p>Разделы не добавлены. <a href="/admin">Добавить</a></p>
+    {% endfor %}
+</div>
+{% endblock %}

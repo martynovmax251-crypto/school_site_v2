@@ -1,0 +1,60 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Документы - Школа №1{% endblock %}
+
+{% block content %}
+<h1 class="section-title">Информационно-документационный центр</h1>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; margin: 2rem 0;">
+
+    <!-- Карточка ВПР 2026 -->
+    <a href="{% url 'vpr' %}" style="text-decoration: none;">
+        <div style="background: white; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s;">
+            <div style="background: linear-gradient(135deg, #1e40af, #1e3a8a); padding: 2rem; text-align: center;">
+                <div style="font-size: 4rem;">📝</div>
+                <h3 style="color: white; margin-top: 1rem;">ВПР 2026</h3>
+            </div>
+            <div style="padding: 1.5rem;">
+                <p style="color: #4a5568;">Всероссийские проверочные работы: даты проведения, расписание, демоверсии и методические материалы.</p>
+                <span style="display: inline-block; margin-top: 1rem; color: #f59e0b; font-weight: bold;">Подробнее →</span>
+            </div>
+        </div>
+    </a>
+
+    <!-- Карточка ГТО 95 лет -->
+    <a href="{% url 'gto' %}" style="text-decoration: none;">
+        <div style="background: white; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s;">
+            <div style="background: linear-gradient(135deg, #059669, #047857); padding: 2rem; text-align: center;">
+                <div style="font-size: 4rem;">🏅</div>
+                <h3 style="color: white; margin-top: 1rem;">ГТО - 95 лет</h3>
+            </div>
+            <div style="padding: 1.5rem;">
+                <p style="color: #4a5568;">Всероссийский физкультурно-спортивный комплекс "Готов к труду и обороне": нормативы, история, брендбук юбилея.</p>
+                <span style="display: inline-block; margin-top: 1rem; color: #f59e0b; font-weight: bold;">Подробнее →</span>
+            </div>
+        </div>
+    </a>
+
+    <!-- Карточка Профилактика клещей / ЗОЖ -->
+    <a href="{% url 'health' %}" style="text-decoration: none;">
+        <div style="background: white; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s;">
+            <div style="background: linear-gradient(135deg, #dc2626, #b91c1c); padding: 2rem; text-align: center;">
+                <div style="font-size: 4rem;">🦟</div>
+                <h3 style="color: white; margin-top: 1rem;">Здоровье и безопасность</h3>
+            </div>
+            <div style="padding: 1.5rem;">
+                <p style="color: #4a5568;">Профилактика клещевого энцефалита, здоровый образ жизни, тематические недели и памятки для родителей и учеников.</p>
+                <span style="display: inline-block; margin-top: 1rem; color: #f59e0b; font-weight: bold;">Подробнее →</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<style>
+.document-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+</style>
+{% endblock %}

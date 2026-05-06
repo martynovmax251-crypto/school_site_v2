@@ -1,0 +1,48 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}ГТО - 95 лет - Школа №1{% endblock %}
+
+{% block content %}
+<article style="background: white; border-radius: 0.5rem; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <h1 style="font-size: 2rem; color: #059669; margin-bottom: 1rem;">ГТО - 95 лет: Готов к труду и обороне!</h1>
+
+    <div style="background: #d1fae5; border-left: 4px solid #059669; padding: 1rem; margin: 1.5rem 0;">
+        <p style="margin: 0; color: #065f46;">🏆 2026 год - юбилейный год Комплекса ГТО! Исполняется 95 лет со дня основания.</p>
+    </div>
+
+    <h2 style="font-size: 1.5rem; color: #059669; margin: 1.5rem 0 1rem 0;">📜 История ГТО</h2>
+    <p>Комплекс "Готов к труду и обороне" был введен в 1931 году. За 95 лет своего существования он стал символом физической культуры и патриотизма в России.</p>
+
+    <h2 style="font-size: 1.5rem; color: #059669; margin: 2rem 0 1rem 0;">🏅 Нормативы ГТО 2026</h2>
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr><th style="border: 1px solid #ddd; padding: 0.75rem; background: #059669; color: white;">Ступень</th>
+                    <th style="border: 1px solid #ddd; padding: 0.75rem; background: #059669; color: white;">Возраст</th>
+                    <th style="border: 1px solid #ddd; padding: 0.75rem; background: #059669; color: white;">Обязательные испытания</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td style="border: 1px solid #ddd; padding: 0.75rem;">I ступень</td><td style="border: 1px solid #ddd; padding: 0.75rem;">6-8 лет</td><td style="border: 1px solid #ddd; padding: 0.75rem;">Челночный бег, отжимания, наклон вперед</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 0.75rem;">II ступень</td><td style="border: 1px solid #ddd; padding: 0.75rem;">9-10 лет</td><td style="border: 1px solid #ddd; padding: 0.75rem;">Бег 60м, подтягивания, прыжок в длину</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 0.75rem;">III ступень</td><td style="border: 1px solid #ddd; padding: 0.75rem;">11-12 лет</td><td style="border: 1px solid #ddd; padding: 0.75rem;">Бег 1000м, метание мяча, плавание</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 0.75rem;">IV ступень</td><td style="border: 1px solid #ddd; padding: 0.75rem;">13-15 лет</td><td style="border: 1px solid #ddd; padding: 0.75rem;">Бег 1500м, стрельба, туристический поход</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2 style="font-size: 1.5rem; color: #059669; margin: 2rem 0 1rem 0;">📦 Брендбук к 95-летию ГТО</h2>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="#" class="btn" style="background: #059669; display: inline-flex; align-items: center; gap: 0.5rem;">🎨 Скачать брендбук (PDF)</a>
+        <a href="#" class="btn" style="background: #059669; display: inline-flex; align-items: center; gap: 0.5rem;">📊 Скачать нормативы (PDF)</a>
+        <a href="#" class="btn" style="background: #059669; display: inline-flex; align-items: center; gap: 0.5rem;">📋 Памятка участника</a>
+    </div>
+
+    <h2 style="font-size: 1.5rem; color: #059669; margin: 2rem 0 1rem 0;">🔗 Полезные ссылки</h2>
+    <ul>
+        <li><a href="https://www.gto.ru/" target="_blank">Официальный сайт ГТО</a></li>
+        <li><a href="https://user.gto.ru/" target="_blank">Личный кабинет участника ГТО</a></li>
+    </ul>
+</article>
+{% endblock %}

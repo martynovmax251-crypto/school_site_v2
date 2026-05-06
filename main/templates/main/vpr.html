@@ -1,0 +1,55 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}ВПР 2026 - Школа №1{% endblock %}
+
+{% block content %}
+<article style="background: white; border-radius: 0.5rem; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <h1 style="font-size: 2rem; color: #1e40af; margin-bottom: 1rem;">Всероссийские проверочные работы (ВПР) 2026</h1>
+
+    <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; margin: 1.5rem 0;">
+        <p style="margin: 0; color: #92400e;">📢 Важная информация: ВПР в 2026 году пройдут в штатном режиме для всех общеобразовательных организаций.</p>
+    </div>
+
+    <h2 style="font-size: 1.5rem; color: #1e40af; margin: 1.5rem 0 1rem 0;">📅 Даты проведения</h2>
+    <ul style="list-style: none; padding: 0;">
+        <li style="padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb;">• 4 класс: 13-24 апреля 2026 года</li>
+        <li style="padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb;">• 5 класс: 6-17 апреля 2026 года</li>
+        <li style="padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb;">• 6 класс: 20 апреля - 15 мая 2026 года</li>
+        <li style="padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb;">• 7 класс: 20 апреля - 15 мая 2026 года</li>
+        <li style="padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb;">• 8 класс: 20 апреля - 15 мая 2026 года</li>
+        <li style="padding: 0.5rem 0;">• 11 класс: 1-25 марта 2026 года</li>
+    </ul>
+
+    <h2 style="font-size: 1.5rem; color: #1e40af; margin: 2rem 0 1rem 0;">📋 Расписание ВПР-2026</h2>
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr><th style="border: 1px solid #ddd; padding: 0.75rem; background: #1e40af; color: white;">Дата</th>
+                    <th style="border: 1px solid #ddd; padding: 0.75rem; background: #1e40af; color: white;">Класс</th>
+                    <th style="border: 1px solid #ddd; padding: 0.75rem; background: #1e40af; color: white;">Предмет</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td style="border: 1px solid #ddd; padding: 0.75rem;">13.04.2026</td><td style="border: 1px solid #ddd; padding: 0.75rem;">4</td><td style="border: 1px solid #ddd; padding: 0.75rem;">Русский язык (часть 1)</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 0.75rem;">15.04.2026</td><td style="border: 1px solid #ddd; padding: 0.75rem;">4</td><td style="border: 1px solid #ddd; padding: 0.75rem;">Русский язык (часть 2)</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 0.75rem;">17.04.2026</td><td style="border: 1px solid #ddd; padding: 0.75rem;">4</td><td style="border: 1px solid #ddd; padding: 0.75rem;">Математика</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 0.75rem;">22.04.2026</td><td style="border: 1px solid #ddd; padding: 0.75rem;">4</td><td style="border: 1px solid #ddd; padding: 0.75rem;">Окружающий мир</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2 style="font-size: 1.5rem; color: #1e40af; margin: 2rem 0 1rem 0;">📄 Документы для скачивания</h2>
+    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <a href="#" class="btn" style="display: inline-flex; align-items: center; gap: 0.5rem; width: fit-content;">📥 Приказ о проведении ВПР-2026</a>
+        <a href="#" class="btn" style="display: inline-flex; align-items: center; gap: 0.5rem; width: fit-content;">📥 График проведения ВПР</a>
+        <a href="#" class="btn" style="display: inline-flex; align-items: center; gap: 0.5rem; width: fit-content;">📥 Демоверсии ВПР-2026</a>
+    </div>
+
+    <h2 style="font-size: 1.5rem; color: #1e40af; margin: 2rem 0 1rem 0;">🔗 Полезные ссылки</h2>
+    <ul>
+        <li><a href="https://fioco.ru/" target="_blank">Официальный сайт ФИОКО</a></li>
+        <li><a href="https://vpr.statgrad.org/" target="_blank">Информационный портал ВПР</a></li>
+    </ul>
+</article>
+{% endblock %}

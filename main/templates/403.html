@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Доступ запрещен - Школа №141{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 4rem 2rem;">
+    <h1 style="font-size: 6rem; color: #dc2626; margin-bottom: 1rem;">403</h1>
+    <h2 style="color: #4a5568; margin-bottom: 1rem;">Доступ запрещен</h2>
+    <p style="color: #6b7280; margin-bottom: 2rem;">У вас нет прав для просмотра этой страницы.</p>
+    <a href="{% url 'index' %}" class="btn">← Вернуться на главную</a>
+</div>
+
+<style>
+    .btn {
+        display: inline-block;
+        background: #2d6a4f;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        transition: background 0.3s;
+    }
+    .btn:hover {
+        background: #1b4d3e;
+    }
+</style>
+{% endblock %}

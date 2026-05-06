@@ -1,0 +1,58 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Прием обращений граждан - Школа №141{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1 class="section-title" style="margin-top: 0;">Прием обращений граждан</h1>
+    <p style="margin-bottom: 2rem; color: #6b7280;">Заполните форму ниже, и мы свяжемся с вами в ближайшее время.</p>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="full_name">ФИО *</label>
+            <input type="text" id="full_name" name="full_name" required placeholder="Иванов Иван Иванович">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required placeholder="ivan@example.com">
+        </div>
+
+        <div class="form-group">
+            <label for="subject">Тема обращения *</label>
+            <input type="text" id="subject" name="subject" required placeholder="Кратко опишите суть обращения">
+        </div>
+
+        <div class="form-group">
+            <label for="message">Сообщение *</label>
+            <textarea id="message" name="message" rows="6" required placeholder="Подробно опишите ваше обращение..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="file">Прикрепить файл (необязательно)</label>
+            <input type="file" id="file" name="file" accept=".pdf,.doc,.docx,.jpg,.png">
+            <small style="color: #6b7280;">Максимальный размер: 10 МБ. Поддерживаемые форматы: PDF, DOC, DOCX, JPG, PNG</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Отправить обращение</button>
+    </form>
+</div>
+
+<style>
+    .btn-primary {
+        background: #1e40af;
+    }
+
+    .btn-primary:hover {
+        background: #1e3a8a;
+    }
+
+    .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Главная - Школа №141 с углубленным изучением математики{% endblock %}
+
+{% block content %}
+<!-- Слайдер -->
+{% if slides %}
+<div class="slider-container">
+    <div class="slides">
+        {% for slide in slides %}
+        <div class="slide">
+            {% if slide.image %}
+            <img src="{{ slide.image.url }}" alt="{{ slide.title }}">
+            {% else %}
+            <div style="background: linear-gradient(135deg, #2d6a4f, #1b4d3e); height: 400px; display: flex; align-items: center; justify-content: center;">
+                <h2 style="color: white; text-align: center;">{{ slide.title }}</h2>
+            </div>
+            {% endif %}
+            <div class="slide-caption">
+                <h3>{{ slide.title }}</h3>
+                {% if slide.link %}
+                <a href="{{ slide.link }}" class="btn" style="background: #d4a373; margin-top: 1rem;">Подробнее</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button class="slider-btn prev" onclick="prevSlide()">❮</button>
+    <button class="slider-btn next" onclick="nextSlide()">❯</button>
+</div>
+{% endif %}
+
+<!-- Приветствие -->
+<div style="background: white; border-radius: 0.5rem; padding: 2rem; margin-bottom: 2rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <h1 style="color: #2d6a4f; margin-bottom: 1rem;">Добро пожаловать в школу №141!</h1>
+    <p style="font-size: 1.2rem; color: #4a5568;">Муниципальное бюджетное общеобразовательное учреждение города Новосибирска<br>
+    "Средняя общеобразовательная школа №141 с углубленным изучением математики"</p>
+</div>
+
+<!-- Последние новости -->
+<h2 class="section-title">Последние новости</h2>
+<div class="news-grid">
+    {% for item in news %}
+    <div class="news-card">
+        {% if item.image %}
+        <img src="{{ item.image.url }}" alt="{{ item.title }}">
+        {% else %}
+        <div style="background: linear-gradient(135deg, #2d6a4f, #1b4d3e); height: 200px; display: flex; align-items: center; justify-content: center;">
+            <span style="color: white; font-size: 3rem;">📰</span>
+        </div>
+        {% endif %}
+        <div class="news-content">
+            <h3 class="news-title">{{ item.title }}</h3>
+            <div class="news-date">📅 {{ item.date|date:"d.m.Y" }}</div>
+            <p class="news-excerpt">{{ item.text|truncatewords:30|safe }}</p>
+            <a href="{% url 'news_detail' item.id %}" class="read-more">Читать далее →</a>
+        </div>
+    </div>
+    {% empty %}
+    <p>Новостей пока нет. Добавьте их через <a href="/admin">админ-панель</a>.</p>
+    {% endfor %}
+</div>
+
+<!-- Контакты директора -->
+{% if director %}
+<h2 class="section-title">Директор школы</h2>
+<div style="background: white; border-radius: 0.5rem; padding: 2rem; margin-top: 2rem; display: flex; gap: 2rem; flex-wrap: wrap; align-items: center;">
+    {% if director.photo %}
+    <img src="{{ director.photo.url }}" alt="{{ director.full_name }}" style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
+    {% else %}
+    <div style="width: 200px; height: 200px; background: linear-gradient(135deg, #2d6a4f, #1b4d3e); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+        <span style="color: white; font-size: 4rem;">👩‍🏫</span>
+    </div>
+    {% endif %}
+    <div>
+        <h3 style="font-size: 1.5rem; color: #2d6a4f; margin-bottom: 0.5rem;">{{ director.full_name }}</h3>
+        <p style="color: #d4a373; font-weight: bold; margin-bottom: 1rem;">{{ director.position }}</p>
+        <p>📧 {{ director.email }}</p>
+        {% if director.phone %}
+        <p>📞 {{ director.phone }}</p>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+<script>
+let slideIndex = 0;
+let slides = document.querySelectorAll('.slide');
+
+function showSlides() {
+    if (slides.length === 0) return;
+    if (slideIndex >= slides.length) slideIndex = 0;
+    if (slideIndex < 0) slideIndex = slides.length - 1;
+
+    const slidesContainer = document.querySelector('.slides');
+    slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
+}
+
+function nextSlide() {
+    slideIndex++;
+    showSlides();
+}
+
+function prevSlide() {
+    slideIndex--;
+    showSlides();
+}
+
+if (slides.length > 1) {
+    setInterval(nextSlide, 5000);
+}
+</script>
+{% endblock %}

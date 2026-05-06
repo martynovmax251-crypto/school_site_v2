@@ -1,0 +1,157 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Новости и объявления - Школа №141{% endblock %}
+
+{% block content %}
+<h1 class="section-title">Новости и объявления</h1>
+
+<!-- Фильтры -->
+<div class="filters">
+    <a href="?{% if search_query %}search={{ search_query }}&{% endif %}" class="filter-btn {% if not current_category %}active{% endif %}">Все</a>
+    <a href="?category=announcement{% if search_query %}&search={{ search_query }}{% endif %}" class="filter-btn {% if current_category == 'announcement' %}active{% endif %}">📢 Объявления</a>
+    <a href="?category=event{% if search_query %}&search={{ search_query }}{% endif %}" class="filter-btn {% if current_category == 'event' %}active{% endif %}">🎉 Мероприятия</a>
+    <a href="?category=safety{% if search_query %}&search={{ search_query }}{% endif %}" class="filter-btn {% if current_category == 'safety' %}active{% endif %}">🛡️ Профилактика</a>
+    <a href="?category=exams{% if search_query %}&search={{ search_query }}{% endif %}" class="filter-btn {% if current_category == 'exams' %}active{% endif %}">📚 ВПР/ГТО</a>
+
+    <form method="get" class="search-form">
+        <input type="text" name="search" placeholder="Поиск..." value="{{ search_query }}">
+        <button type="submit">Найти</button>
+    </form>
+</div>
+
+<!-- Список новостей -->
+<div class="news-grid">
+    {% for item in page_obj %}
+    <div class="news-card">
+        {% if item.image %}
+        <img src="{{ item.image.url }}" alt="{{ item.title }}">
+        {% else %}
+        <div class="news-image-placeholder">📰</div>
+        {% endif %}
+        <div class="news-content">
+            <h3>{{ item.title }}</h3>
+            <div class="news-date">📅 {{ item.date|date:"d.m.Y" }}</div>
+            <p>{{ item.text|truncatewords:30|safe }}</p>
+            <a href="{% url 'news_detail' item.id %}" class="read-more">Читать далее →</a>
+        </div>
+    </div>
+    {% empty %}
+    <p>Новостей пока нет.</p>
+    {% endfor %}
+</div>
+
+<!-- Пагинация -->
+{% if page_obj.has_other_pages %}
+<div class="pagination">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}">← Назад</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <span class="active">{{ num }}</span>
+        {% else %}
+            <a href="?page={{ num }}{% if current_category %}&category={{ current_category }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}">Далее →</a>
+    {% endif %}
+</div>
+{% endif %}
+
+<style>
+    .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: white;
+        border-radius: 0.5rem;
+    }
+    .filter-btn {
+        padding: 0.5rem 1rem;
+        background: #f1f5f9;
+        color: #334155;
+        text-decoration: none;
+        border-radius: 2rem;
+        transition: all 0.2s;
+    }
+    .filter-btn.active {
+        background: #1e40af;
+        color: white;
+    }
+    .search-form {
+        display: flex;
+        gap: 0.5rem;
+        margin-left: auto;
+    }
+    .search-form input {
+        padding: 0.5rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.5rem;
+    }
+    .search-form button {
+        padding: 0.5rem 1rem;
+        background: #1e40af;
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+    }
+    .news-image-placeholder {
+        height: 200px;
+        background: linear-gradient(135deg, #1e40af, #1e3a8a);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+    }
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1.5rem;
+    }
+    .news-card {
+        background: white;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .news-content {
+        padding: 1rem;
+    }
+    .news-date {
+        color: #6b7280;
+        font-size: 0.875rem;
+        margin: 0.5rem 0;
+    }
+    .read-more {
+        color: #1e40af;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 2rem;
+    }
+    .pagination a, .pagination span {
+        padding: 0.5rem 1rem;
+        background: white;
+        border: 1px solid #e2e8f0;
+        text-decoration: none;
+        color: #1e40af;
+        border-radius: 0.5rem;
+    }
+    .pagination .active {
+        background: #1e40af;
+        color: white;
+        border-color: #1e40af;
+    }
+</style>
+{% endblock %}

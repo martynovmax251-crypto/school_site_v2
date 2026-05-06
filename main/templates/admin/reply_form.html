@@ -1,0 +1,53 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Ответ на обращение | {{ appeal.full_name }}{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 20px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+    <h1 style="color: #1e40af; margin-bottom: 20px;">📧 Ответ на обращение</h1>
+
+    <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        <h3 style="margin: 0 0 10px 0; color: #1e40af;">Информация об обращении:</h3>
+        <p><strong>От:</strong> {{ appeal.full_name }} ({{ appeal.email }})</p>
+        <p><strong>Тема:</strong> {{ appeal.subject }}</p>
+        <p><strong>Сообщение:</strong></p>
+        <div style="background: white; padding: 10px; border-radius: 5px; margin-top: 5px;">
+            {{ appeal.message|linebreaks }}
+        </div>
+        {% if appeal.file %}
+        <p><strong>Вложенный файл:</strong> <a href="{{ appeal.file.url }}" target="_blank">Скачать</a></p>
+        {% endif %}
+    </div>
+
+    <form method="POST" action="{% url 'admin:send_reply' appeal.id %}">
+        {% csrf_token %}
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px;">Кому:</label>
+            <input type="email" value="{{ appeal.email }}" readonly style="width: 100%; padding: 8px; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 5px;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px;">Тема:</label>
+            <input type="text" name="reply_subject" value="Ответ на ваше обращение: {{ appeal.subject }}" style="width: 100%; padding: 8px; border: 1px solid #e2e8f0; border-radius: 5px;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px;">Текст ответа:</label>
+            <textarea name="reply_message" rows="10" style="width: 100%; padding: 8px; border: 1px solid #e2e8f0; border-radius: 5px;" placeholder="Введите ваш ответ..."></textarea>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+            <button type="submit" style="background: #1e40af; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">📤 Отправить ответ</button>
+            <a href="{% url 'admin:main_appeal_changelist' %}" style="background: #6c757d; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">← Отмена</a>
+        </div>
+    </form>
+</div>
+
+<style>
+    button:hover {
+        background: #1e3a8a !important;
+    }
+</style>
+{% endblock %}

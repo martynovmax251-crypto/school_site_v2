@@ -1,0 +1,14 @@
+/* Вложенное отображение разделов в админке */
+.field-parent .related-lookup {
+    display: inline-block;
+}
+
+/* Подсветка родительских разделов */
+tr.has-child {
+    background-color: #f0f7ff !important;
+}
+
+/* Отступы для вложенных элементов (если нужно) */
+.drag-handle {
+    cursor: move;
+}

@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}МБОУ СОШ №141 с углубленным изучением математики - Официальный сайт{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏫</text></svg>">
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('nav');
+            nav.classList.toggle('active');
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-text">
+                    🏫 МБОУ СОШ №141
+                </div>
+                <div class="logo-sub">с углубленным изучением математики</div>
+            </div>
+            <button class="hamburger" onclick="toggleMenu()">☰</button>
+            <nav>
+                <a href="{% url 'index' %}">Главная</a>
+                <a href="{% url 'news_list' %}">Новости</a>
+                <a href="{% url 'teachers_list' %}">Администрация и педагоги</a>
+                <a href="{% url 'info_index' %}">Сведения об ОО</a>
+                <a href="{% url 'appeal' %}">Прием обращений</a>
+                <a href="{% url 'documents' %}">Документы</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}success{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <p>&copy; {% now "Y" %} Муниципальное бюджетное общеобразовательное учреждение города Новосибирска "Средняя общеобразовательная школа №141 с углубленным изучением математики". Все права защищены.</p>
+                    <p>г. Новосибирск, ул. Пришвина, 3 | Телефон: +7 (383) 33-88-651</p>
+                    <p>Email: s_141@edu54.ru</p>
+                </div>
+                <div>
+                    <a href="/admin" class="admin-link" title="Вход для администратора">🔐 Вход для администратора</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
