@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Результаты поиска{% endblock %}
+
+{% block content %}
+<h1 class="section-title">Результаты поиска: "{{ query }}"</h1>
+
+{% if results %}
+    <div class="news-grid">
+        {% for item in results %}
+            <div class="news-card">
+                <div class="news-content">
+                    <h3 class="news-title">{{ item.title }}</h3>
+                    <div class="news-date">📅 {{ item.date|date:"d.m.Y" }}</div>
+                    <p>{{ item.text|truncatewords:30|safe }}</p>
+                    <a href="{% url 'news_detail' item.id %}" class="read-more">Читать далее →</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>По вашему запросу ничего не найдено.</p>
+{% endif %}
+{% endblock %}

@@ -117,6 +117,20 @@ def health_view(request):
     """Страница профилактики клещей / ЗОЖ"""
     return render(request, 'main/health.html')
 
+def search_view(request):
+    query = request.GET.get('q', '')
+    results = []
+    if query:
+        from django.db.models import Q
+        results = News.objects.filter(
+            Q(title__icontains=query) | Q(text__icontains=query)
+        )
+    return render(request, 'main/search_results.html', {'query': query, 'results': results})
+
+def parents_view(request):
+    """Страница Родителям"""
+    return render(request, 'main/parents.html')
+
 
 # =================================================================
 # РАЗДЕЛЫ (управляются через админку, модель Section)

@@ -15,88 +15,78 @@
 
 <!-- Директор -->
 {% if director and group_by != 'deputy' and group_by != 'teacher' %}
-<h2>Директор</h2>
+<h2>👩‍💼 Директор</h2>
 <div class="teachers-grid">
-    <a href="{% url 'teacher_detail' director.id %}" class="teacher-card-link">
-        <div class="teacher-card">
-            {% if director.photo %}
-            <img src="{{ director.photo.url }}" alt="{{ director.full_name }}">
-            {% else %}
-            <div class="teacher-photo-placeholder">👩‍🏫</div>
+    <div class="teacher-card">
+        {% if director.photo %}
+        <img src="{{ director.photo.url }}" alt="{{ director.full_name }}">
+        {% else %}
+        <div class="teacher-photo-placeholder">👩‍🏫</div>
+        {% endif %}
+        <div class="teacher-info">
+            <div class="teacher-name">{{ director.full_name }}</div>
+            <div class="teacher-position">{{ director.position }}</div>
+            <div class="teacher-subjects">📚 {{ director.subjects|default:"—" }}</div>
+            {% if director.email %}
+            <div class="teacher-email">📧 {{ director.email }}</div>
             {% endif %}
-            <div class="teacher-info">
-                <div class="teacher-name">{{ director.full_name }}</div>
-                <div class="teacher-position">{{ director.position }}</div>
-                <div class="teacher-level">🎓 {{ director.get_education_level_display }}</div>
-                {% if director.email %}
-                <div class="teacher-email">📧 {{ director.email }}</div>
-                {% endif %}
-                {% if director.phone %}
-                <div class="teacher-phone">📞 {{ director.phone }}</div>
-                {% endif %}
-            </div>
+            {% if director.phone %}
+            <div class="teacher-phone">📞 {{ director.phone }}</div>
+            {% endif %}
         </div>
-    </a>
+    </div>
 </div>
 {% endif %}
 
 <!-- Завучи -->
 {% if deputies and group_by != 'director' and group_by != 'teacher' %}
-<h2>Завучи</h2>
+<h2>📚 Завучи</h2>
 <div class="teachers-grid">
     {% for teacher in deputies %}
-    <a href="{% url 'teacher_detail' teacher.id %}" class="teacher-card-link">
-        <div class="teacher-card">
-            {% if teacher.photo %}
-            <img src="{{ teacher.photo.url }}" alt="{{ teacher.full_name }}">
-            {% else %}
-            <div class="teacher-photo-placeholder">👩‍🏫</div>
+    <div class="teacher-card">
+        {% if teacher.photo %}
+        <img src="{{ teacher.photo.url }}" alt="{{ teacher.full_name }}">
+        {% else %}
+        <div class="teacher-photo-placeholder">👩‍🏫</div>
+        {% endif %}
+        <div class="teacher-info">
+            <div class="teacher-name">{{ teacher.full_name }}</div>
+            <div class="teacher-position">{{ teacher.position }}</div>
+            <div class="teacher-subjects">📚 {{ teacher.subjects|default:"—" }}</div>
+            {% if teacher.email %}
+            <div class="teacher-email">📧 {{ teacher.email }}</div>
             {% endif %}
-            <div class="teacher-info">
-                <div class="teacher-name">{{ teacher.full_name }}</div>
-                <div class="teacher-position">{{ teacher.position }}</div>
-                <div class="teacher-level">🎓 {{ teacher.get_education_level_display }}</div>
-                {% if teacher.email %}
-                <div class="teacher-email">📧 {{ teacher.email }}</div>
-                {% endif %}
-                {% if teacher.phone %}
-                <div class="teacher-phone">📞 {{ teacher.phone }}</div>
-                {% endif %}
-            </div>
+            {% if teacher.phone %}
+            <div class="teacher-phone">📞 {{ teacher.phone }}</div>
+            {% endif %}
         </div>
-    </a>
+    </div>
     {% endfor %}
 </div>
 {% endif %}
 
 <!-- Учителя -->
 {% if teachers and group_by != 'director' and group_by != 'deputy' %}
-<h2>Учителя</h2>
+<h2>👩‍🏫 Учителя</h2>
 <div class="teachers-grid">
     {% for teacher in teachers %}
-    <a href="{% url 'teacher_detail' teacher.id %}" class="teacher-card-link">
-        <div class="teacher-card">
-            {% if teacher.photo %}
-            <img src="{{ teacher.photo.url }}" alt="{{ teacher.full_name }}">
-            {% else %}
-            <div class="teacher-photo-placeholder">👩‍🏫</div>
+    <div class="teacher-card">
+        {% if teacher.photo %}
+        <img src="{{ teacher.photo.url }}" alt="{{ teacher.full_name }}">
+        {% else %}
+        <div class="teacher-photo-placeholder">👩‍🏫</div>
+        {% endif %}
+        <div class="teacher-info">
+            <div class="teacher-name">{{ teacher.full_name }}</div>
+            <div class="teacher-position">{{ teacher.position }}</div>
+            <div class="teacher-subjects">📚 {{ teacher.subjects|default:"—" }}</div>
+            {% if teacher.email %}
+            <div class="teacher-email">📧 {{ teacher.email }}</div>
             {% endif %}
-            <div class="teacher-info">
-                <div class="teacher-name">{{ teacher.full_name }}</div>
-                <div class="teacher-position">{{ teacher.position }}</div>
-                <div class="teacher-level">🎓 {{ teacher.get_education_level_display }}</div>
-                {% if teacher.email %}
-                <div class="teacher-email">📧 {{ teacher.email }}</div>
-                {% endif %}
-            </div>
         </div>
-    </a>
+    </div>
     {% endfor %}
 </div>
-{% endif %}
-
-{% if not director and not deputies and not teachers %}
-<p style="text-align: center; padding: 2rem;">Сотрудники пока не добавлены.</p>
 {% endif %}
 
 <style>
@@ -133,20 +123,15 @@
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         gap: 1.5rem;
     }
-    .teacher-card-link {
-        text-decoration: none;
-        color: inherit;
-        display: block;
-    }
     .teacher-card {
         background: white;
-        border-radius: 0.5rem;
+        border-radius: 0.75rem;
         overflow: hidden;
-        text-align: center;
         box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        transition: transform 0.2s, box-shadow 0.2s;
-        cursor: pointer;
+        transition: transform 0.2s;
         height: 100%;
+        display: flex;
+        flex-direction: column;
     }
     .teacher-card:hover {
         transform: translateY(-3px);
@@ -154,13 +139,12 @@
     }
     .teacher-card img {
         width: 100%;
-        height: 280px;
-        object-fit: contain;
+        height: 250px;
+        object-fit: cover;
         background: #f1f5f9;
-        padding: 0.5rem;
     }
     .teacher-photo-placeholder {
-        height: 280px;
+        height: 250px;
         background: linear-gradient(135deg, #1e40af, #1e3a8a);
         display: flex;
         align-items: center;
@@ -170,6 +154,7 @@
     }
     .teacher-info {
         padding: 1rem;
+        flex-grow: 1;
     }
     .teacher-name {
         font-size: 1rem;
@@ -180,29 +165,32 @@
     .teacher-position {
         color: #f59e0b;
         font-size: 0.85rem;
-        margin-bottom: 0.25rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
     }
-    .teacher-level {
-        color: #6b7280;
+    .teacher-subjects {
         font-size: 0.75rem;
-        margin-bottom: 0.25rem;
-        font-style: italic;
+        color: #334155;
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #e2e8f0;
     }
     .teacher-email, .teacher-phone {
+        font-size: 0.7rem;
         color: #6b7280;
-        font-size: 0.75rem;
-        margin: 0.1rem 0;
+        margin: 0.2rem 0;
         word-break: break-all;
     }
-    @media (max-width: 640px) {
+
+    @media (max-width: 768px) {
         .teachers-grid {
             grid-template-columns: 1fr;
         }
         .teacher-card img {
-            height: 250px;
+            height: 220px;
         }
         .teacher-photo-placeholder {
-            height: 250px;
+            height: 220px;
         }
     }
 </style>
