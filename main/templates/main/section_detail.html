@@ -11,14 +11,16 @@
 
     <h1 class="section-title">{{ section.title }}</h1>
 
-    <!-- Содержимое родительского раздела -->
-    <div class="section-content">
-        {{ section.content|safe }}
-    </div>
+    <!-- Показываем содержимое ТОЛЬКО если оно не пустое -->
+    {% if section.content and section.content.strip %}
+        <div class="section-content">
+            {{ section.content|safe }}
+        </div>
+    {% endif %}
 
     <!-- Подразделы, привязанные к этому родителю -->
     {% if section.section_set.all %}
-        <h2 class="subsection-title">📂 Разделы внутри «{{ section.title }}»</h2>
+        <h2 class="subsection-title">📂 Разделы</h2>
         <div class="subsections-grid">
             {% for sub in section.section_set.all %}
                 {% if sub.is_visible %}
@@ -41,6 +43,9 @@
         border-radius: 0.375rem;
         margin-bottom: 1rem;
     }
+    .btn-back:hover {
+        background: #4b5563;
+    }
     .section-content {
         background: white;
         border-radius: 0.5rem;
@@ -53,6 +58,8 @@
         font-size: 1.5rem;
         margin-top: 2rem;
         color: #1e40af;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 0.5rem;
     }
     .subsections-grid {
         display: grid;

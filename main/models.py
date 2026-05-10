@@ -29,8 +29,7 @@ class News(models.Model):
 
 class Slide(models.Model):
     title = models.CharField(max_length=100, verbose_name='Заголовок')
-    image = models.ImageField(upload_to='slides/', verbose_name='Изображение для слайда')
-    link = models.URLField(blank=True, null=True, verbose_name='Ссылка (если есть)')
+    image = models.ImageField(upload_to='slides/', verbose_name='Изображение для слайда', blank=True, null=True)
     order = models.IntegerField(default=0, verbose_name='Порядок')
 
     def __str__(self):

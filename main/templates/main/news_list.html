@@ -22,28 +22,24 @@
 <div class="news-grid">
     {% for item in page_obj %}
         <div class="news-card">
-            {% if item.image %}
+            <a href="{% url 'news_detail' item.id %}" class="news-card-link">
                 <div class="news-image-wrapper">
-                    <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                    {% if item.image %}
+                        <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                    {% else %}
+                        <div class="news-no-image">📰</div>
+                    {% endif %}
                     <div class="news-date-block">
                         <div class="news-date-day">{{ item.date|date:"d" }}</div>
                         <div class="news-date-month">{{ item.date|date:"M"|upper|slice:":3" }}</div>
                     </div>
                 </div>
-            {% else %}
-                <div class="news-image-wrapper">
-                    <div class="news-no-image">📰</div>
-                    <div class="news-date-block">
-                        <div class="news-date-day">{{ item.date|date:"d" }}</div>
-                        <div class="news-date-month">{{ item.date|date:"M"|upper|slice:":3" }}</div>
-                    </div>
+                <div class="news-content">
+                    <h3 class="news-title">{{ item.title }}</h3>
+                    <p class="news-excerpt">{{ item.text|truncatewords:30|safe }}</p>
+                    <span class="read-more">Читать далее →</span>
                 </div>
-            {% endif %}
-            <div class="news-content">
-                <h3 class="news-title">{{ item.title }}</h3>
-                <p class="news-excerpt">{{ item.text|truncatewords:30|safe }}</p>
-                <a href="{% url 'news_detail' item.id %}" class="read-more">Читать далее →</a>
-            </div>
+            </a>
         </div>
     {% empty %}
         <p>Новостей пока нет.</p>
@@ -71,7 +67,6 @@
 {% endif %}
 
 <style>
-/* Фильтры */
 .filters {
     display: flex;
     flex-wrap: wrap;
@@ -83,7 +78,6 @@
     border-radius: 16px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
-
 .filter-btn {
     padding: 8px 16px;
     background: #f1f5f9;
@@ -92,24 +86,20 @@
     border-radius: 30px;
     transition: all 0.2s;
 }
-
 .filter-btn.active, .filter-btn:hover {
     background: #1e40af;
     color: white;
 }
-
 .search-form-inline {
     display: flex;
     gap: 8px;
     margin-left: auto;
 }
-
 .search-form-inline input {
     padding: 8px 12px;
     border: 1px solid #e2e8f0;
     border-radius: 30px;
 }
-
 .search-form-inline button {
     background: #1e40af;
     color: white;
@@ -118,40 +108,39 @@
     padding: 8px 16px;
     cursor: pointer;
 }
-
-/* Карточки новостей */
 .news-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 2rem;
     margin: 2rem 0;
 }
-
+.news-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
 .news-card {
     background: white;
     border-radius: 24px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
 }
-
 .news-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 24px rgba(0,0,0,0.12);
 }
-
 .news-image-wrapper {
     position: relative;
     height: 200px;
     overflow: hidden;
 }
-
 .news-image-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
 .news-no-image {
     width: 100%;
     height: 100%;
@@ -162,8 +151,6 @@
     font-size: 3rem;
     color: white;
 }
-
-/* Календарь даты */
 .news-date-block {
     position: absolute;
     top: 12px;
@@ -177,23 +164,19 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     z-index: 2;
 }
-
 .news-date-day {
     font-size: 22px;
     font-weight: bold;
     line-height: 1;
 }
-
 .news-date-month {
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
-
 .news-content {
     padding: 1.5rem;
 }
-
 .news-title {
     font-size: 1.2rem;
     font-weight: 700;
@@ -201,29 +184,20 @@
     margin-bottom: 0.75rem;
     line-height: 1.4;
 }
-
 .news-excerpt {
     font-size: 0.9rem;
     color: #475569;
     line-height: 1.5;
     margin-bottom: 1rem;
 }
-
 .read-more {
     color: #f59e0b;
-    text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
     display: inline-flex;
     align-items: center;
     gap: 4px;
 }
-
-.read-more:hover {
-    gap: 8px;
-}
-
-/* Пагинация */
 .pagination {
     display: flex;
     justify-content: center;
@@ -231,7 +205,6 @@
     margin-top: 2rem;
     flex-wrap: wrap;
 }
-
 .pagination a, .pagination span {
     padding: 8px 14px;
     background: white;
@@ -241,39 +214,25 @@
     border-radius: 30px;
     transition: all 0.2s;
 }
-
 .pagination a:hover {
     background: #1e40af;
     color: white;
 }
-
 .pagination .active {
     background: #1e40af;
     color: white;
     border-color: #1e40af;
 }
-
-/* Адаптивность */
 @media (max-width: 768px) {
     .filters {
         flex-direction: column;
         align-items: stretch;
     }
-
     .search-form-inline {
         margin-left: 0;
     }
-
     .news-grid {
         grid-template-columns: 1fr;
-    }
-
-    .news-date-day {
-        font-size: 18px;
-    }
-
-    .news-date-month {
-        font-size: 9px;
     }
 }
 </style>

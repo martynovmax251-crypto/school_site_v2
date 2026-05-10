@@ -11,17 +11,15 @@
         {% for slide in slides %}
         <div class="slide">
             {% if slide.image %}
-            <img src="{{ slide.image.url }}" alt="{{ slide.title }}">
+                <img src="{{ slide.image.url }}" alt="{{ slide.title }}">
             {% else %}
-            <div style="background: linear-gradient(135deg, #2d6a4f, #1b4d3e); height: 400px; display: flex; align-items: center; justify-content: center;">
-                <h2 style="color: white; text-align: center;">{{ slide.title }}</h2>
-            </div>
+                <div class="slide-no-image">
+                    <h2>{{ slide.title }}</h2>
+                </div>
             {% endif %}
             <div class="slide-caption">
                 <h3>{{ slide.title }}</h3>
-                {% if slide.link %}
-                <a href="{{ slide.link }}" class="btn" style="background: #d4a373; margin-top: 1rem;">Подробнее</a>
-                {% endif %}
+                <!-- Кнопка убрана -->
             </div>
         </div>
         {% endfor %}
