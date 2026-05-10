@@ -58,12 +58,12 @@
 
             <!-- Поиск -->
             <form action="{% url 'search' %}" method="get" class="search-form">
-                <input type="text" name="q" placeholder="Поиск..." aria-label="Поиск">
-                <button type="submit">🔍</button>
+            <input type="text" name="q" placeholder="Поиск..." value="{{ request.GET.q }}" aria-label="Поиск">
+            <button type="submit">🔍</button>
             </form>
 
-            <!-- Кнопка для слабовидящих (ВИДИМАЯ) -->
-            <button class="accessibility-btn" onclick="toggleAccessibility()" style="background: #f59e0b; color: #1e293b; border: none; padding: 8px 16px; border-radius: 30px; cursor: pointer; font-weight: bold; display: inline-flex; align-items: center; gap: 6px;">
+            <!-- Кнопка для слабовидящих -->
+            <button class="accessibility-btn" onclick="toggleAccessibility()">
                 👁️ Версия для слабовидящих
             </button>
 
@@ -91,12 +91,17 @@
         </div>
     </div>
 
-    <!-- Кнопка Скачать MAX -->
-    <button class="max-button" onclick="openQrModal()">
-        <span>📱</span> Скачать MAX
-    </button>
+    <!-- Кнопки в правом нижнем углу (VK сверху, MAX снизу) -->
+    <div class="floating-buttons">
+        <a href="https://vk.com/public217225973" class="vk-button" target="_blank" rel="noopener noreferrer">
+            <span> </span> Наш VK
+        </a>
+        <button class="max-button" onclick="openQrModal()">
+            <span> </span> Скачать MAX
+        </button>
+    </div>
 
-    <!-- Модальное окно QR -->
+    <!-- Модальное окно с QR-кодом -->
     <div id="qrModal" class="qr-modal">
         <div class="qr-modal-content">
             <div class="qr-modal-header">
@@ -110,7 +115,7 @@
                     <li>Нажмите виджет Сферум, и вы попадёте в ваш профиль</li>
                 </ol>
                 <div class="qr-code">
-                    <div style="width: 160px; height: 160px; background: #f0f0f0; margin: 0 auto; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 1px solid #ddd;">
+                    <div class="qr-placeholder">
                         <span>QR-код MAX</span>
                     </div>
                     <p>📸 Наведите камеру, чтобы скачать</p>
@@ -124,9 +129,12 @@
         <div class="gosuslugi-content">
             <div class="gosuslugi-text">
                 <h4>Есть предложения по организации учебного процесса или знаете, как сделать школу лучше?</h4>
-                <button class="gosuslugi-btn" onclick="window.open('https://pos.gosuslugi.ru/form/', '_blank')">
+                <a href="https://pos.gosuslugi.ru/form/?opaId=317654&amp;utm_source=vk&amp;utm_medium=50&amp;utm_campaign=1025403870876"
+                   class="gosuslugi-btn"
+                   target="_blank"
+                   rel="noopener noreferrer">
                     Написать о проблеме
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -140,6 +148,7 @@
                     </div>
                 {% endfor %}
             {% endif %}
+
             {% block content %}
             {% endblock %}
         </div>

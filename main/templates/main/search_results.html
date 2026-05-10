@@ -1,24 +1,273 @@
 {% extends 'main/base.html' %}
+{% load static %}
 
-{% block title %}Результаты поиска{% endblock %}
+{% block title %}Результаты поиска - Школа №141{% endblock %}
 
 {% block content %}
 <h1 class="section-title">Результаты поиска: "{{ query }}"</h1>
 
-{% if results %}
+{% if not news_results and not teacher_results and not section_results and query %}
+    <div style="text-align: center; padding: 3rem;">
+        <p style="font-size: 1.2rem; color: #64748b;">По вашему запросу <strong>"{{ query }}"</strong> ничего не найдено.</p>
+        <p style="margin-top: 1rem;">Попробуйте изменить поисковый запрос.</p>
+        <div style="margin-top: 2rem;">
+            <a href="{% url 'index' %}" class="btn">← Вернуться на главную</a>
+        </div>
+    </div>
+{% else %}
+
+    <!-- Результаты поиска по новостям -->
+    {% if news_results %}
+    <h2 class="section-subtitle">📰 Новости ({{ news_results|length }})</h2>
     <div class="news-grid">
-        {% for item in results %}
+        {% for item in news_results %}
             <div class="news-card">
-                <div class="news-content">
-                    <h3 class="news-title">{{ item.title }}</h3>
-                    <div class="news-date">📅 {{ item.date|date:"d.m.Y" }}</div>
-                    <p>{{ item.text|truncatewords:30|safe }}</p>
-                    <a href="{% url 'news_detail' item.id %}" class="read-more">Читать далее →</a>
-                </div>
+                <a href="{% url 'news_detail' item.id %}" class="news-card-link">
+                    <div class="news-image-wrapper">
+                        {% if item.image %}
+                            <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                        {% else %}
+                            <div class="news-no-image">📰</div>
+                        {% endif %}
+                        <div class="news-date-block">
+                            <div class="news-date-day">{{ item.date|date:"d" }}</div>
+                            <div class="news-date-month">{{ item.date|date:"M"|upper|slice:":3" }}</div>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">{{ item.title }}</h3>
+                        <p class="news-excerpt">{{ item.text|truncatewords:50|safe }}</p>
+                        <span class="read-more">Читать далее →</span>
+                    </div>
+                </a>
             </div>
         {% endfor %}
     </div>
-{% else %}
-    <p>По вашему запросу ничего не найдено.</p>
+    {% endif %}
+
+    <!-- Результаты поиска по сотрудникам -->
+    {% if teacher_results %}
+    <h2 class="section-subtitle">👩‍🏫 Сотрудники ({{ teacher_results|length }})</h2>
+    <div class="teachers-grid">
+        {% for teacher in teacher_results %}
+            <a href="{% url 'teacher_detail' teacher.id %}" class="teacher-card-link">
+                <div class="teacher-card">
+                    {% if teacher.photo %}
+                        <img src="{{ teacher.photo.url }}" alt="{{ teacher.full_name }}">
+                    {% else %}
+                        <div class="teacher-photo-placeholder">👩‍🏫</div>
+                    {% endif %}
+                    <div class="teacher-info">
+                        <div class="teacher-name">{{ teacher.full_name }}</div>
+                        <div class="teacher-position">{{ teacher.position }}</div>
+                        <div class="teacher-subjects">📚 {{ teacher.subjects|default:"—" }}</div>
+                        {% if teacher.email %}
+                            <div class="teacher-email">📧 {{ teacher.email }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Результаты поиска по разделам -->
+    {% if section_results %}
+    <h2 class="section-subtitle">📄 Разделы ({{ section_results|length }})</h2>
+    <div class="subsections-grid">
+        {% for section in section_results %}
+            <a href="{{ section.get_absolute_url }}" class="subsection-card">
+                📄 {{ section.title }}
+            </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div style="margin-top: 2rem;">
+        <a href="{% url 'index' %}" class="btn">← Вернуться на главную</a>
+    </div>
 {% endif %}
+
+<style>
+    .section-subtitle {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1e40af;
+        margin: 2rem 0 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #e2e8f0;
+    }
+
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+    }
+
+    .teachers-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+    }
+
+    .subsections-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+    }
+
+    .news-card-link, .teacher-card-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .news-card, .teacher-card {
+        background: white;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        transition: transform 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+        height: 100%;
+    }
+
+    .news-card:hover, .teacher-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    }
+
+    .news-image-wrapper {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .news-image-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .news-no-image {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #1e40af, #06b6d4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: white;
+    }
+
+    .news-date-block {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: #1e40af;
+        color: white;
+        border-radius: 12px;
+        padding: 6px 12px;
+        text-align: center;
+        min-width: 55px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        z-index: 2;
+    }
+
+    .news-date-day {
+        font-size: 22px;
+        font-weight: bold;
+        line-height: 1;
+    }
+
+    .news-date-month {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .news-content, .teacher-info {
+        padding: 1.5rem;
+    }
+
+    .news-title, .teacher-name {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #1e40af;
+        margin-bottom: 0.75rem;
+    }
+
+    .news-excerpt, .teacher-position {
+        font-size: 0.9rem;
+        color: #475569;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+    }
+
+    .teacher-subjects {
+        font-size: 0.8rem;
+        color: #64748b;
+        margin-bottom: 0.5rem;
+    }
+
+    .teacher-email {
+        font-size: 0.75rem;
+        color: #6b7280;
+        word-break: break-all;
+    }
+
+    .read-more {
+        color: #f59e0b;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .subsection-card {
+        display: block;
+        padding: 1rem;
+        background: white;
+        border-radius: 16px;
+        text-decoration: none;
+        color: #1e40af;
+        font-weight: 500;
+        transition: all 0.2s;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .subsection-card:hover {
+        background: #1e40af;
+        color: white;
+        transform: translateX(5px);
+        border-color: #1e40af;
+    }
+
+    .btn {
+        display: inline-block;
+        background: #1e40af;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+
+    .btn:hover {
+        background: #1e3a8a;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+        .news-grid, .teachers-grid, .subsections-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
 {% endblock %}

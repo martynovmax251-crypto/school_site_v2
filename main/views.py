@@ -129,14 +129,41 @@ def search_view(request):
 
 
 def search_view(request):
-    query = request.GET.get('q', '')
-    results = []
+    """Поиск по всему сайту: новости, учителя, разделы, страницы"""
+    from django.db.models import Q
+    query = request.GET.get('q', '').strip()
+
+    news_results = []
+    teacher_results = []
+    section_results = []
+
     if query:
-        from django.db.models import Q
-        results = News.objects.filter(
+        # Поиск по новостям
+        news_results = News.objects.filter(
             Q(title__icontains=query) | Q(text__icontains=query)
         )
-    return render(request, 'main/search_results.html', {'query': query, 'results': results})
+
+        # Поиск по учителям (ФИО, должность, предметы, email, телефон)
+        teacher_results = Teacher.objects.filter(
+            Q(full_name__icontains=query) |
+            Q(position__icontains=query) |
+            Q(subjects__icontains=query) |
+            Q(email__icontains=query) |
+            Q(phone__icontains=query)
+        )
+
+        # Поиск по разделам (Сведения об ОО, Родителям и т.д.)
+        section_results = Section.objects.filter(
+            Q(title__icontains=query) | Q(content__icontains=query)
+        )
+
+    context = {
+        'query': query,
+        'news_results': news_results,
+        'teacher_results': teacher_results,
+        'section_results': section_results,
+    }
+    return render(request, 'main/search_results.html', context)
 
 # =================================================================
 # РАЗДЕЛЫ (управляются через админку, модель Section)
@@ -151,6 +178,7 @@ def section_detail_view(request, slug):
     """Страница раздела — показывает содержимое и дочерние разделы"""
     section = get_object_or_404(Section, slug=slug, is_visible=True)
     return render(request, 'main/section_detail.html', {'section': section})
+
 
 
 # ========== ОБРАБОТЧИКИ ОШИБОК ==========

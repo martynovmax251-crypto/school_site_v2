@@ -11,10 +11,10 @@ ALLOWED_HOSTS = []
 
 # ========== INSTALLED_APPS ==========
 INSTALLED_APPS = [
+    'admin_interface',
+    'colorfield',
     'nested_admin',
     'admin_thumbnails',
-    "admin_interface",
-    "colorfield",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

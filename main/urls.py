@@ -19,7 +19,7 @@ urlpatterns = [
     # Поиск
     path('search/', views.search_view, name='search'),
 
-    # Разделы "Сведения об ОО" (универсальные)
+    # Разделы "Сведения об ОО"
     path('info/', views.info_index_view, name='info_index'),
     path('info/<slug:slug>/', views.section_detail_view, name='section_detail'),
 
