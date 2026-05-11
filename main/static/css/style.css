@@ -993,7 +993,7 @@ button,
 }
 
 /* =========================================
-   ПОДВАЛ
+   ПОДВАЛ СО ССЫЛКАМИ
    ========================================= */
 
 footer {
@@ -1006,18 +1006,48 @@ footer {
 .footer-grid {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     gap: 2rem;
 }
 
-.footer-grid a {
+.footer-links h4 {
     color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    position: relative;
+}
+
+.footer-links h4::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+    color: rgba(255,255,255,0.7);
     text-decoration: none;
+    font-size: 0.8rem;
     transition: var(--transition);
 }
 
-.footer-grid a:hover {
+.footer-links a:hover {
     color: var(--accent);
 }
 
@@ -1027,6 +1057,14 @@ footer {
     padding: 0.5rem 1rem;
     border-radius: 40px;
     font-size: 0.75rem;
+    color: white;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.admin-link:hover {
+    background: var(--accent);
+    color: #111827;
 }
 
 /* =========================================
@@ -1080,6 +1118,16 @@ body.accessibility-mode .section-title::after {
     .search-form input {
         width: 100%;
     }
+
+    .footer-grid {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-links h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
 
 @media (max-width: 768px) {
@@ -1123,11 +1171,6 @@ body.accessibility-mode .section-title::after {
     .parents-grid,
     .subsections-grid {
         grid-template-columns: 1fr;
-    }
-
-    .footer-grid {
-        flex-direction: column;
-        text-align: center;
     }
 
     .floating-buttons {
