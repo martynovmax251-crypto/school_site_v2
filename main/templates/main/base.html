@@ -5,8 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}МБОУ СОШ №141 с углубленным изучением математики - Официальный сайт{% endblock %}</title>
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏫</text></svg>">
+
+    <link rel="icon" type="image/x-icon"
+          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏫</text></svg>">
+
     <script>
         function toggleMenu() {
             const nav = document.querySelector('nav');
@@ -23,6 +27,7 @@
 
         function toggleAccessibility() {
             document.body.classList.toggle('accessibility-mode');
+
             if (document.body.classList.contains('accessibility-mode')) {
                 localStorage.setItem('accessibility', 'on');
             } else {
@@ -30,9 +35,11 @@
             }
         }
 
-        if (localStorage.getItem('accessibility') === 'on') {
-            document.body.classList.add('accessibility-mode');
-        }
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('accessibility') === 'on') {
+                document.body.classList.add('accessibility-mode');
+            }
+        });
 
         document.addEventListener('click', function(event) {
             if (event.target === document.getElementById('qrModal')) {
@@ -41,141 +48,243 @@
         });
     </script>
 </head>
+
 <body>
-    <header>
-        <div class="container header-container">
+
+<header>
+    <div class="container header-container">
+
+        <!-- ЛОГО + РОССИЙСКИЙ ФЛАГ -->
+        <a href="{% url 'index' %}" class="logo-wrapper">
+
+            <div class="russian-flag">
+                <div class="flag-white"></div>
+                <div class="flag-blue"></div>
+                <div class="flag-red"></div>
+            </div>
+
             <div class="logo">
-                <div class="logo-text">🏫 МБОУ СОШ №141</div>
-                <div class="logo-sub">с углубленным изучением математики</div>
-            </div>
-
-            <!-- Контакты в шапке -->
-            <div class="header-contacts">
-                <div class="contact-item">📞 <a href="tel:+73833388651">(383) 33-88-651</a></div>
-                <div class="contact-item">✉️ <a href="mailto:s_141@edu54.ru">s_141@edu54.ru</a></div>
-                <div class="contact-item">🕐 Пн-Пт: 7:00–21:00</div>
-            </div>
-
-            <!-- Поиск -->
-            <form action="{% url 'search' %}" method="get" class="search-form">
-                <input type="text" name="q" placeholder="Поиск..." value="{{ request.GET.q }}" aria-label="Поиск">
-                <button type="submit">🔍</button>
-            </form>
-
-            <!-- Кнопка для слабовидящих -->
-            <button class="accessibility-btn" onclick="toggleAccessibility()">
-                👁️ Версия для слабовидящих
-            </button>
-
-            <button class="hamburger" onclick="toggleMenu()">☰</button>
-            <nav>
-                <a href="{% url 'index' %}">Главная</a>
-                <a href="{% url 'news_list' %}">Новости</a>
-                <a href="{% url 'teachers_list' %}">Администрация и педагоги</a>
-                <a href="{% url 'info_index' %}">Сведения об ОО</a>
-                <a href="{% url 'section_detail' slug='bezopasnost' %}">Безопасность</a>
-                <a href="{% url 'section_detail' slug='gia' %}">ГИА</a>
-                <a href="{% url 'appeal' %}">Прием обращений</a>
-                <a href="{% url 'documents' %}">Документы</a>
-                <a href="{% url 'parents' %}">Родителям</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Бегущая строка -->
-    <div class="marquee-wrapper">
-        <div class="marquee">
-            <span>📞 8-800-2000-122 — единый телефон доверия для детей, подростков и их родителей</span>
-            <span>📞 8-800-2000-122 — единый телефон доверия для детей, подростков и их родителей</span>
-            <span>📞 8-800-2000-122 — единый телефон доверия для детей, подростков и их родителей</span>
-        </div>
-    </div>
-
-    <!-- Кнопки в правом нижнем углу (VK сверху, MAX снизу) -->
-    <div class="floating-buttons">
-        <a href="https://vk.com/public217225973" class="vk-button" target="_blank" rel="noopener noreferrer">
-            <span>📱</span> Наш VK
-        </a>
-        <button class="max-button" onclick="openQrModal()">
-            <span>📱</span> Скачать MAX
-        </button>
-    </div>
-
-    <!-- Модальное окно с QR-кодом -->
-    <div id="qrModal" class="qr-modal">
-        <div class="qr-modal-content">
-            <div class="qr-modal-header">
-                <h3>📱 Сферум теперь в мессенджере MAX</h3>
-                <button class="qr-modal-close" onclick="closeQrModal()">✕</button>
-            </div>
-            <div class="qr-modal-body">
-                <p>Учебные чаты и контакты уже там.</p>
-                <ol>
-                    <li>Зарегистрируйтесь в приложении MAX. Используйте номер телефона из Сферума</li>
-                    <li>Нажмите виджет Сферум, и вы попадёте в ваш профиль</li>
-                </ol>
-                <div class="qr-code">
-                    <div class="qr-placeholder">
-                        <span>QR-код MAX</span>
-                    </div>
-                    <p>📸 Наведите камеру, чтобы скачать</p>
+                <div class="logo-text">МБОУ СОШ №141</div>
+                <div class="logo-sub">
+                    с углубленным изучением математики
                 </div>
             </div>
+
+        </a>
+
+        <!-- КОНТАКТЫ -->
+        <div class="header-contacts">
+            <div class="contact-item">
+                📞 <a href="tel:+73833388651">(383) 33-88-651</a>
+            </div>
+
+            <div class="contact-item">
+                ✉️ <a href="mailto:s_141@edu54.ru">s_141@edu54.ru</a>
+            </div>
+
+            <div class="contact-item">
+                🕐 Пн-Пт: 7:00–21:00
+            </div>
+        </div>
+
+        <!-- ПОИСК -->
+        <form action="{% url 'search' %}" method="get" class="search-form">
+            <input type="text"
+                   name="q"
+                   placeholder="Поиск..."
+                   value="{{ request.GET.q }}"
+                   aria-label="Поиск">
+
+            <button type="submit">🔍</button>
+        </form>
+
+        <!-- ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ -->
+        <button class="accessibility-btn" onclick="toggleAccessibility()">
+            👁️ Версия для слабовидящих
+        </button>
+
+        <!-- МОБИЛЬНОЕ МЕНЮ -->
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+
+        <!-- НАВИГАЦИЯ -->
+        <nav>
+            <a href="{% url 'index' %}">Главная</a>
+            <a href="{% url 'news_list' %}">Новости</a>
+            <a href="{% url 'teachers_list' %}">Администрация и педагоги</a>
+            <a href="{% url 'info_index' %}">Сведения об ОО</a>
+            <a href="{% url 'section_detail' slug='bezopasnost' %}">Безопасность</a>
+            <a href="{% url 'section_detail' slug='gia' %}">ГИА</a>
+            <a href="{% url 'appeal' %}">Прием обращений</a>
+            <a href="{% url 'documents' %}">Документы</a>
+            <a href="{% url 'section_detail' slug='roditelyam' %}">Родителям</a>
+        </nav>
+
+    </div>
+</header>
+
+<!-- БЕГУЩАЯ СТРОКА -->
+<div class="marquee-wrapper">
+    <div class="marquee">
+        <span>📞 8-800-2000-122 — единый телефон доверия для детей, подростков и их родителей</span>
+        <span>📞 8-800-2000-122 — единый телефон доверия для детей, подростков и их родителей</span>
+        <span>📞 8-800-2000-122 — единый телефон доверия для детей, подростков и их родителей</span>
+    </div>
+</div>
+
+<!-- КНОПКИ -->
+<div class="floating-buttons">
+
+    <a href="https://vk.com/public217225973"
+       class="vk-button"
+       target="_blank"
+       rel="noopener noreferrer">
+
+        <span>📱</span> Наш VK
+    </a>
+
+    <button class="max-button" onclick="openQrModal()">
+        <span>📱</span> Скачать MAX
+    </button>
+
+</div>
+
+<!-- QR -->
+<div id="qrModal" class="qr-modal">
+    <div class="qr-modal-content">
+
+        <div class="qr-modal-header">
+            <h3>📱 Сферум теперь в мессенджере MAX</h3>
+
+            <button class="qr-modal-close"
+                    onclick="closeQrModal()">✕</button>
+        </div>
+
+        <div class="qr-modal-body">
+
+            <p>Учебные чаты и контакты уже там.</p>
+
+            <ol>
+                <li>Зарегистрируйтесь в приложении MAX</li>
+                <li>Используйте номер телефона из Сферума</li>
+            </ol>
+
+            <div class="qr-code">
+                <div class="qr-placeholder">
+                    <span>QR-код MAX</span>
+                </div>
+
+                <p>📸 Наведите камеру, чтобы скачать</p>
+            </div>
+
         </div>
     </div>
+</div>
 
-    <!-- Баннер Госуслуги -->
-    <div class="gosuslugi-banner">
-        <div class="gosuslugi-content">
-            <div class="gosuslugi-text">
-                <h4>Есть предложения по организации учебного процесса или знаете, как сделать школу лучше?</h4>
-                <a href="https://pos.gosuslugi.ru/form/?opaId=317654&amp;utm_source=vk&amp;utm_medium=50&amp;utm_campaign=1025403870876"
-                   class="gosuslugi-btn"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                    Написать о проблеме
+<!-- ГОСУСЛУГИ -->
+<div class="gosuslugi-banner">
+    <div class="gosuslugi-content">
+        <div class="gosuslugi-text">
+
+            <h4>
+                Есть предложения по организации учебного процесса
+                или знаете, как сделать школу лучше?
+            </h4>
+
+            <a href="https://pos.gosuslugi.ru/form/?opaId=317654"
+               class="gosuslugi-btn"
+               target="_blank"
+               rel="noopener noreferrer">
+
+                Написать о проблеме
+            </a>
+
+        </div>
+    </div>
+</div>
+
+<main>
+    <div class="container">
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}success{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div>
+                <p>
+                    &copy; {% now "Y" %}
+                    МБОУ СОШ №141 с углубленным изучением математики
+                </p>
+
+                <p>
+                    г. Новосибирск, ул. Пришвина, 3
+                </p>
+
+                <p>
+                    📞 (383) 33-88-651
+                </p>
+            </div>
+
+            <div class="footer-links">
+
+                <h4>Официальные сайты</h4>
+
+                <ul>
+                    <li>
+                        <a href="https://edu.gov.ru/"
+                           target="_blank">
+                            Министерство просвещения РФ
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://obrnadzor.gov.ru/"
+                           target="_blank">
+                            Рособрнадзор
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://edu54.ru/"
+                           target="_blank">
+                            Департамент образования
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.gosuslugi.ru/"
+                           target="_blank">
+                            Госуслуги
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div>
+                <a href="/admin" class="admin-link">
+                    🔐 Вход для администратора
                 </a>
             </div>
+
         </div>
+
     </div>
+</footer>
 
-    <main>
-        <div class="container">
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}success{% endif %}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-
-            {% block content %}
-            {% endblock %}
-        </div>
-    </main>
-
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <p>&copy; {% now "Y" %} МБОУ СОШ №141 с углубленным изучением математики. Все права защищены.</p>
-                    <p>г. Новосибирск, ул. Пришвина, 3 | 📞 (383) 33-88-651 | ✉️ s_141@edu54.ru</p>
-                    <p>📞 Единый телефон доверия: <strong>8-800-2000-122</strong></p>
-                </div>
-                <div class="footer-links">
-                    <h4>Официальные сайты</h4>
-                    <ul>
-                        <li><a href="https://edu.gov.ru/" target="_blank" rel="noopener noreferrer">Министерство просвещения РФ</a></li>
-                        <li><a href="https://obrnadzor.gov.ru/" target="_blank" rel="noopener noreferrer">Рособрнадзор</a></li>
-                        <li><a href="https://edu54.ru/" target="_blank" rel="noopener noreferrer">Департамент образования Новосибирска</a></li>
-                        <li><a href="https://www.gosuslugi.ru/" target="_blank" rel="noopener noreferrer">Госуслуги</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <a href="/admin" class="admin-link">🔐 Вход для администратора</a>
-                </div>
-            </div>
-        </div>
-    </footer>
 </body>
 </html>

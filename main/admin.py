@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
+from .models import DocumentPage
 
 from .models import (
     News,
@@ -414,7 +415,7 @@ class ChildSectionInline(admin.StackedInline):
 
     fk_name = 'parent'
 
-    extra = 1
+    extra = 0
 
     show_change_link = True
 
@@ -549,3 +550,24 @@ class SectionAdmin(admin.ModelAdmin):
             ''',
             obj.get_absolute_url()
         )
+
+@admin.register(DocumentPage)
+class DocumentPageAdmin(admin.ModelAdmin):
+    # Показываем только один объект — с slug='documents'
+    list_display = ('title', 'is_visible', 'site_link')
+    fields = ('title', 'slug', 'content', 'is_visible')
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.filter(slug='documents')
+
+    # Запрещаем удаление и создание новых объектов (только редактирование существующего)
+    def has_add_permission(self, request):
+        return not self.model.objects.filter(slug='documents').exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    @admin.display(description='Сайт')
+    def site_link(self, obj):
+        return format_html('<a href="{}" target="_blank">Открыть</a>', obj.get_absolute_url())

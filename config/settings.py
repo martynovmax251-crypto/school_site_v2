@@ -11,6 +11,7 @@ ALLOWED_HOSTS = []
 
 # ========== INSTALLED_APPS ==========
 INSTALLED_APPS = [
+    'django_ckeditor_5',
     'admin_interface',
     'colorfield',
     'nested_admin',
@@ -23,6 +24,30 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "main",
 ]
+
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': {
+            'items': [
+                'heading', '|',
+                'bold', 'italic', 'link', 'bulletedList', 'numberedList',
+                'blockQuote', 'imageUpload', 'upload',   # ← Кнопка загрузки файлов
+                '|', 'undo', 'redo',
+                '|', 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor',
+                '|', 'insertTable', 'sourceEditing', 'removeFormat',
+                'outdent', 'indent', 'alignment',
+            ]
+        },
+        'language': 'ru',
+        'image': {
+            'toolbar': ['imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:alignRight', 'imageStyle:alignCenter']
+        },
+        'upload': {
+            'types': ['*']   # ← Разрешить любые типы файлов
+        }
+    }
+}
+CKEDITOR_5_MAX_FILE_SIZE = 10  # MB
 
 # Обязательно для admin_interface
 X_FRAME_OPTIONS = "SAMEORIGIN"
@@ -43,7 +68,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates', BASE_DIR / 'main/templates/main',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,11 +105,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'ru'
 TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True
 USE_TZ = True
-
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'main/static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

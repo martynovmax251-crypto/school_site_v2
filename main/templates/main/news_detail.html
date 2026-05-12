@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ news.title }} — Школа №141{% endblock %}
+
+{% block content %}
+<div class="news-detail">
+    <p class="news-detail-date">{{ news.date|date:"d.m.Y" }} | {{ news.get_category_display }}</p>
+    <h1>{{ news.title }}</h1>
+
+    {% if news.image %}
+        <img src="{{ news.image.url }}" alt="{{ news.title }}" style="max-width:100%; height:auto;">
+    {% endif %}
+
+    <div class="news-text">
+        {{ news.text|linebreaks }}
+    </div>
+
+    {% if news.file %}
+        <p><a href="{{ news.file.url }}" download>📄 Скачать файл</a></p>
+    {% endif %}
+
+    <p><a href="{% url 'news_list' %}">← Все новости</a></p>
+</div>
+{% endblock %}

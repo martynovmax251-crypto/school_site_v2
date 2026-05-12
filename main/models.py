@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from django_resized import ResizedImageField
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 class News(models.Model):
@@ -15,7 +17,15 @@ class News(models.Model):
     date = models.DateTimeField(default=timezone.now, verbose_name='Дата публикации')
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='announcement',
                                 verbose_name='Категория')
-    image = models.ImageField(upload_to='news_images/', blank=True, null=True, verbose_name='Изображение')
+    image = ResizedImageField(
+        size=[800, 450],
+        crop=['middle', 'center'],
+        quality=85,
+        upload_to='news_images/',
+        blank=True,
+        null=True,
+        verbose_name='Изображение'
+    )
     file = models.FileField(upload_to='news_files/', blank=True, null=True, verbose_name='Файл для скачивания')
 
     def __str__(self):
@@ -29,7 +39,15 @@ class News(models.Model):
 
 class Slide(models.Model):
     title = models.CharField(max_length=100, verbose_name='Заголовок')
-    image = models.ImageField(upload_to='slides/', verbose_name='Изображение для слайда', blank=True, null=True)
+    image = ResizedImageField(
+        size=[1920, 800],
+        crop=['middle', 'center'],
+        quality=85,
+        upload_to='slides/',
+        blank=True,
+        null=True,
+        verbose_name='Изображение для слайда'
+    )
     order = models.IntegerField(default=0, verbose_name='Порядок')
 
     def __str__(self):
@@ -47,7 +65,15 @@ class Teacher(models.Model):
     ]
 
     full_name = models.CharField(max_length=100, verbose_name='ФИО')
-    photo = models.ImageField(upload_to='teachers/', verbose_name='Фото', blank=True, null=True)
+    photo = ResizedImageField(
+        size=[600, 800],
+        crop=['middle', 'center'],
+        quality=85,
+        upload_to='teachers/',
+        blank=True,
+        null=True,
+        verbose_name='Фото'
+    )
     position = models.CharField(max_length=100, verbose_name='Должность')
     email = models.EmailField(verbose_name='Email', blank=True, null=True)
     phone = models.CharField(max_length=20, blank=True, null=True, verbose_name='Телефон')
@@ -106,7 +132,7 @@ class Section(models.Model):
                                verbose_name='Родительский раздел')
     title = models.CharField(max_length=200, verbose_name='Название раздела')
     slug = models.SlugField(unique=True, verbose_name='Ссылка (только латиницей)')
-    content = models.TextField(verbose_name='Содержание', blank=True)
+    content = CKEditor5Field(verbose_name='Содержание', blank=True)
     order = models.IntegerField(default=0, verbose_name='Порядок')
     is_visible = models.BooleanField(default=True, verbose_name='Показывать на сайте')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
@@ -122,3 +148,10 @@ class Section(models.Model):
 
     def get_absolute_url(self):
         return f'/info/{self.slug}/'
+
+
+class DocumentPage(Section):
+    class Meta:
+        proxy = True
+        verbose_name = 'Документы'
+        verbose_name_plural = 'Документы'
