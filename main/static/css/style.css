@@ -4,13 +4,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-    --primary: #0039a6;        /* синий флаг */
+    --primary: #0039a6;
     --primary-dark: #002266;
     --primary-light: #e8f0fe;
 
     --secondary: #0f172a;
 
-    --accent: #d52b1e;         /* красный флаг */
+    --accent: #d52b1e;
     --accent-light: #fce4e4;
 
     --bg: #f5f7fa;
@@ -215,7 +215,6 @@ nav a:hover::after { width: 100%; }
 
 /* =========================================
    СЛАЙДЕР, КАРТОЧКИ, ФОРМЫ и т.д.
-   (оставлены ваши стили, но адаптированы под новую палитру)
    ========================================= */
 .slider-container {
     position: relative;
@@ -475,13 +474,246 @@ footer {
 .admin-link { display: inline-block; background: rgba(255,255,255,0.1); padding: 0.5rem 1rem; border-radius: 40px; font-size: 0.75rem; color: white; text-decoration: none; transition: var(--transition); }
 .admin-link:hover { background: var(--accent); color: #111827; }
 
-body.accessibility-mode { background: black; color: white; font-size: 18px; }
-body.accessibility-mode * { transition: none !important; }
-body.accessibility-mode a { color: #facc15 !important; text-decoration: underline !important; }
-body.accessibility-mode .card, body.accessibility-mode .news-card,
-body.accessibility-mode .teacher-card, body.accessibility-mode .parents-card,
-body.accessibility-mode header, body.accessibility-mode footer { background: #111 !important; color: white !important; border-color: #333 !important; }
-body.accessibility-mode .section-title::after { background: #facc15; }
+/* =========================================
+   РЕЖИМ ДЛЯ СЛАБОВИДЯЩИХ (расширенный)
+   ========================================= */
+body.accessibility-mode {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+body.accessibility-mode * {
+    transition: none !important;
+    animation: none !important;
+}
+
+body.accessibility-mode header {
+    background: #111111 !important;
+    border-bottom: 3px solid #ffff00 !important;
+}
+
+body.accessibility-mode .logo-text {
+    color: #ffffff !important;
+}
+
+body.accessibility-mode .logo-sub {
+    color: #cccccc !important;
+}
+
+body.accessibility-mode nav a {
+    color: #ffff00 !important;
+}
+
+body.accessibility-mode nav a:hover {
+    color: #ffffff !important;
+    background: #333333 !important;
+}
+
+body.accessibility-mode nav a::after {
+    background: #ffff00 !important;
+}
+
+body.accessibility-mode .header-contacts {
+    background: #222222 !important;
+}
+
+body.accessibility-mode .contact-item {
+    color: #ffffff !important;
+}
+
+body.accessibility-mode .contact-item a {
+    color: #ffff00 !important;
+    text-decoration: underline !important;
+}
+
+body.accessibility-mode .accessibility-btn {
+    background: #ffff00 !important;
+    color: #000000 !important;
+    border: 2px solid #ffffff !important;
+}
+
+body.accessibility-mode .search-form {
+    background: #222222 !important;
+    border: 2px solid #ffff00 !important;
+}
+
+body.accessibility-mode .search-form input {
+    color: #ffffff !important;
+}
+
+body.accessibility-mode .search-form input::placeholder {
+    color: #cccccc !important;
+}
+
+body.accessibility-mode a {
+    color: #ffff00 !important;
+    text-decoration: underline !important;
+}
+
+body.accessibility-mode .news-card,
+body.accessibility-mode .teacher-card,
+body.accessibility-mode .parents-card,
+body.accessibility-mode .form-container {
+    background: #111111 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffff00 !important;
+    box-shadow: none !important;
+}
+
+body.accessibility-mode .news-card:hover,
+body.accessibility-mode .teacher-card:hover,
+body.accessibility-mode .parents-card:hover {
+    transform: none !important;
+    box-shadow: 0 0 15px rgba(255,255,0,0.3) !important;
+    border-color: #ffffff !important;
+}
+
+body.accessibility-mode .news-title,
+body.accessibility-mode .teacher-name,
+body.accessibility-mode .teacher-position {
+    color: #ffffff !important;
+}
+
+body.accessibility-mode .news-excerpt,
+body.accessibility-mode .teacher-subjects,
+body.accessibility-mode .teacher-email,
+body.accessibility-mode .teacher-phone {
+    color: #cccccc !important;
+}
+
+body.accessibility-mode .read-more {
+    color: #ffff00 !important;
+    text-decoration: underline !important;
+}
+
+body.accessibility-mode .section-title {
+    color: #ffff00 !important;
+}
+
+body.accessibility-mode .section-title::after {
+    background: #ffff00 !important;
+}
+
+body.accessibility-mode .filter-btn {
+    background: #333333 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffff00 !important;
+}
+
+body.accessibility-mode .filter-btn:hover,
+body.accessibility-mode .filter-btn.active {
+    background: #ffff00 !important;
+    color: #000000 !important;
+}
+
+body.accessibility-mode .pagination a,
+body.accessibility-mode .pagination span {
+    background: #333333 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffff00 !important;
+}
+
+body.accessibility-mode .pagination a:hover,
+body.accessibility-mode .pagination .active {
+    background: #ffff00 !important;
+    color: #000000 !important;
+}
+
+body.accessibility-mode footer {
+    background: #111111 !important;
+    border-top: 3px solid #ffff00 !important;
+}
+
+body.accessibility-mode footer,
+body.accessibility-mode footer a {
+    color: #ffffff !important;
+}
+
+body.accessibility-mode footer a:hover {
+    color: #ffff00 !important;
+    text-decoration: underline !important;
+}
+
+body.accessibility-mode .footer-links h4 {
+    color: #ffff00 !important;
+}
+
+body.accessibility-mode .admin-link {
+    background: #ffff00 !important;
+    color: #000000 !important;
+}
+
+body.accessibility-mode .marquee-wrapper {
+    background: #ffff00 !important;
+    color: #000000 !important;
+}
+
+body.accessibility-mode .gosuslugi-banner {
+    background: #333333 !important;
+    border: 2px solid #ffff00 !important;
+}
+
+body.accessibility-mode .gosuslugi-btn {
+    background: #ffff00 !important;
+    color: #000000 !important;
+    font-weight: 700 !important;
+}
+
+body.accessibility-mode .news-date-block {
+    background: #ffff00 !important;
+    color: #000000 !important;
+}
+
+body.accessibility-mode .teacher-photo-placeholder {
+    background: #222222 !important;
+    border: 2px solid #ffff00 !important;
+}
+
+body.accessibility-mode .btn {
+    background: #ffff00 !important;
+    color: #000000 !important;
+    font-weight: 700 !important;
+    border: 2px solid #ffffff !important;
+}
+
+body.accessibility-mode .btn:hover {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+body.accessibility-mode .subsection-card {
+    background: #222222 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+}
+
+body.accessibility-mode .subsection-card:hover {
+    background: #ffff00 !important;
+    color: #000000 !important;
+}
+
+body.accessibility-mode .qr-modal-content {
+    background: #111111 !important;
+    border: 2px solid #ffff00 !important;
+    color: #ffffff !important;
+}
+
+body.accessibility-mode .qr-modal-header {
+    border-bottom-color: #333333 !important;
+}
+
+body.accessibility-mode .qr-modal-close {
+    color: #ffffff !important;
+}
+
+body.accessibility-mode .qr-modal-close:hover {
+    color: #ffff00 !important;
+}
+
+body.accessibility-mode .slider-btn {
+    background: #ffff00 !important;
+    color: #000000 !important;
+}
 
 @media (max-width: 1024px) {
     .header-container { flex-wrap: wrap; }

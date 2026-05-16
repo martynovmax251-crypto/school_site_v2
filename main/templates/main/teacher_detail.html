@@ -14,24 +14,24 @@
             {% if teacher.photo %}
             <img src="{{ teacher.photo.url }}" alt="{{ teacher.full_name }}" class="teacher-detail-photo">
             {% else %}
-            <div class="teacher-detail-photo-placeholder">👩‍🏫</div>
+            <div class="teacher-detail-photo-placeholder"> </div>
             {% endif %}
             <div class="teacher-detail-info">
                 <h1 class="teacher-detail-name">{{ teacher.full_name }}</h1>
                 <p class="teacher-detail-position">{{ teacher.position }}</p>
-                <p class="teacher-detail-level">🎓 {{ teacher.get_education_level_display }}</p>
+                <p class="teacher-detail-level"> {{ teacher.get_education_level_display }}</p>
                 {% if teacher.email %}
-                <p class="teacher-detail-contact">📧 <a href="mailto:{{ teacher.email }}">{{ teacher.email }}</a></p>
+                <p class="teacher-detail-contact"> <a href="mailto:{{ teacher.email }}">{{ teacher.email }}</a></p>
                 {% endif %}
                 {% if teacher.phone %}
-                <p class="teacher-detail-contact">📞 {{ teacher.phone }}</p>
+                <p class="teacher-detail-contact"> {{ teacher.phone }}</p>
                 {% endif %}
             </div>
         </div>
 
         {% if teacher.bio %}
         <div class="teacher-detail-bio">
-            <h3>📖 Подробная информация</h3>
+            <h3> Подробная информация</h3>
             <div class="bio-content">
                 {{ teacher.bio|linebreaks }}
             </div>

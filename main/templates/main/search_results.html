@@ -47,7 +47,7 @@
 
     <!-- Результаты поиска по сотрудникам -->
     {% if teacher_results %}
-    <h2 class="section-subtitle">👩‍🏫 Сотрудники ({{ teacher_results|length }})</h2>
+    <h2 class="section-subtitle"> Сотрудники ({{ teacher_results|length }})</h2>
     <div class="teachers-grid">
         {% for teacher in teacher_results %}
             <a href="{% url 'teacher_detail' teacher.id %}" class="teacher-card-link">
@@ -55,14 +55,14 @@
                     {% if teacher.photo %}
                         <img src="{{ teacher.photo.url }}" alt="{{ teacher.full_name }}">
                     {% else %}
-                        <div class="teacher-photo-placeholder">👩‍🏫</div>
+                        <div class="teacher-photo-placeholder"> </div>
                     {% endif %}
                     <div class="teacher-info">
                         <div class="teacher-name">{{ teacher.full_name }}</div>
                         <div class="teacher-position">{{ teacher.position }}</div>
-                        <div class="teacher-subjects">📚 {{ teacher.subjects|default:"—" }}</div>
+                        <div class="teacher-subjects"> {{ teacher.subjects|default:"—" }}</div>
                         {% if teacher.email %}
-                            <div class="teacher-email">📧 {{ teacher.email }}</div>
+                            <div class="teacher-email"> {{ teacher.email }}</div>
                         {% endif %}
                     </div>
                 </div>

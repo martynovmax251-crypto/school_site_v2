@@ -133,6 +133,7 @@ class Section(models.Model):
     title = models.CharField(max_length=200, verbose_name='Название раздела')
     slug = models.SlugField(unique=True, verbose_name='Ссылка (только латиницей)')
     content = CKEditor5Field(verbose_name='Содержание', blank=True)
+    file = models.FileField(upload_to='section_files/', blank=True, null=True, verbose_name='Файл для скачивания')
     order = models.IntegerField(default=0, verbose_name='Порядок')
     is_visible = models.BooleanField(default=True, verbose_name='Показывать на сайте')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
@@ -155,3 +156,28 @@ class DocumentPage(Section):
         proxy = True
         verbose_name = 'Документы'
         verbose_name_plural = 'Документы'
+
+
+class SectionFile(models.Model):
+    section = models.ForeignKey(
+        Section,
+        on_delete=models.CASCADE,
+        related_name='files',
+        verbose_name='Раздел'
+    )
+    file = models.FileField(
+        upload_to='section_files/',
+        verbose_name='Файл'
+    )
+    description = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name='Описание файла'
+    )
+
+    def __str__(self):
+        return f"Файл для {self.section.title}"
+
+    class Meta:
+        verbose_name = 'Файл раздела'
+        verbose_name_plural = 'Файлы разделов'

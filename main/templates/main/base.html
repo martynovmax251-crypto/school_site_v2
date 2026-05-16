@@ -11,6 +11,9 @@
     <link rel="icon" type="image/x-icon"
           href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏫</text></svg>">
 
+    <!-- Подключаем библиотеку для генерации QR-кода -->
+    <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+
     <script>
         function toggleMenu() {
             const nav = document.querySelector('nav');
@@ -19,25 +22,60 @@
 
         function openQrModal() {
             document.getElementById('qrModal').classList.add('show');
+            generateQRCode();
         }
 
         function closeQrModal() {
             document.getElementById('qrModal').classList.remove('show');
         }
 
-        function toggleAccessibility() {
-            document.body.classList.toggle('accessibility-mode');
+        function generateQRCode() {
+            const qrContainer = document.getElementById('qrcode');
+            qrContainer.innerHTML = '';
 
-            if (document.body.classList.contains('accessibility-mode')) {
+            const appUrl = 'https://max.ru/download';
+
+            new QRCode(qrContainer, {
+                text: appUrl,
+                width: 200,
+                height: 200,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+
+        function toggleAccessibility() {
+            var body = document.body;
+            var html = document.documentElement;
+
+            body.classList.toggle('accessibility-mode');
+
+            if (body.classList.contains('accessibility-mode')) {
                 localStorage.setItem('accessibility', 'on');
+                // Увеличиваем шрифт и межстрочный интервал
+                html.style.fontSize = '18px';
+                html.style.lineHeight = '1.8';
+                html.style.letterSpacing = '0.5px';
+                html.style.wordSpacing = '2px';
             } else {
                 localStorage.setItem('accessibility', 'off');
+                // Возвращаем стандартные настройки
+                html.style.fontSize = '';
+                html.style.lineHeight = '';
+                html.style.letterSpacing = '';
+                html.style.wordSpacing = '';
             }
         }
 
+        // При загрузке страницы проверяем, был ли включен режим
         window.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('accessibility') === 'on') {
                 document.body.classList.add('accessibility-mode');
+                document.documentElement.style.fontSize = '18px';
+                document.documentElement.style.lineHeight = '1.8';
+                document.documentElement.style.letterSpacing = '0.5px';
+                document.documentElement.style.wordSpacing = '2px';
             }
         });
 
@@ -75,15 +113,15 @@
         <!-- КОНТАКТЫ -->
         <div class="header-contacts">
             <div class="contact-item">
-                📞 <a href="tel:+73833388651">(383) 33-88-651</a>
+                 <a href="tel:+73833388651">(383) 33-88-651</a>
             </div>
 
             <div class="contact-item">
-                ✉️ <a href="mailto:s_141@edu54.ru">s_141@edu54.ru</a>
+                 <a href="mailto:s_141@edu54.ru">s_141@edu54.ru</a>
             </div>
 
             <div class="contact-item">
-                🕐 Пн-Пт: 7:00–21:00
+                 Пн-Пт: 7:00–21:00
             </div>
         </div>
 
@@ -100,7 +138,7 @@
 
         <!-- ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ -->
         <button class="accessibility-btn" onclick="toggleAccessibility()">
-            👁️ Версия для слабовидящих
+             Версия для слабовидящих
         </button>
 
         <!-- МОБИЛЬНОЕ МЕНЮ -->
@@ -125,9 +163,9 @@
 <!-- БЕГУЩАЯ СТРОКА -->
 <div class="marquee-wrapper">
     <div class="marquee">
-        <span>📞 8-800-2000-122 — единый телефон доверия для детей, подростков и их родителей</span>
-        <span>📞 8-800-2000-122 — единый телефон доверия для детей, подростков и их родителей</span>
-        <span>📞 8-800-2000-122 — единый телефон доверия для детей, подростков и их родителей</span>
+        <span> 8-800-2000-122 — единый телефон доверия для детей, подростков и их родителей</span>
+        <span> 8-800-2000-122 — единый телефон доверия для детей, подростков и их родителей</span>
+        <span> 8-800-2000-122 — единый телефон доверия для детей, подростков и их родителей</span>
     </div>
 </div>
 
@@ -139,42 +177,91 @@
        target="_blank"
        rel="noopener noreferrer">
 
-        <span>📱</span> Наш VK
+        <span> </span> Наш VK
     </a>
 
     <button class="max-button" onclick="openQrModal()">
-        <span>📱</span> Скачать MAX
+        <span> </span> Скачать MAX
     </button>
 
 </div>
 
-<!-- QR -->
+<!-- МОДАЛЬНОЕ ОКНО С QR-КОДОМ -->
 <div id="qrModal" class="qr-modal">
     <div class="qr-modal-content">
 
         <div class="qr-modal-header">
-            <h3>📱 Сферум теперь в мессенджере MAX</h3>
-
-            <button class="qr-modal-close"
-                    onclick="closeQrModal()">✕</button>
+            <h3>📱 Скачать приложение MAX (Сферум)</h3>
+            <button class="qr-modal-close" onclick="closeQrModal()">✕</button>
         </div>
 
         <div class="qr-modal-body">
 
-            <p>Учебные чаты и контакты уже там.</p>
+            <p style="text-align: center; margin-bottom: 20px;">
+                Наведите камеру телефона на QR-код<br>или выберите вашу платформу
+            </p>
 
-            <ol>
-                <li>Зарегистрируйтесь в приложении MAX</li>
-                <li>Используйте номер телефона из Сферума</li>
-            </ol>
-
-            <div class="qr-code">
-                <div class="qr-placeholder">
-                    <span>QR-код MAX</span>
-                </div>
-
-                <p>📸 Наведите камеру, чтобы скачать</p>
+            <!-- QR-код -->
+            <div style="text-align: center; margin-bottom: 25px;">
+                <div id="qrcode" style="display: inline-block; padding: 15px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
             </div>
+
+            <!-- Кнопки для платформ -->
+            <div style="display: flex; flex-direction: column; gap: 10px; max-width: 280px; margin: 0 auto 20px;">
+
+                <!-- Android -->
+                <a href="https://play.google.com/store/apps/details?id=ru.mail.max"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   style="display: flex; align-items: center; gap: 10px; padding: 10px 18px; background: #4CAF50; color: white; text-decoration: none; border-radius: 10px; font-weight: 600; transition: all 0.3s;">
+                    <span style="font-size: 22px;"> </span>
+                    <div>
+                        <div style="font-size: 11px; opacity: 0.9;">Скачать для</div>
+                        <div style="font-size: 15px;">Android</div>
+                    </div>
+                </a>
+
+                <!-- iOS -->
+                <a href="https://apps.apple.com/ru/app/max-mail-ru/id1482684837"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   style="display: flex; align-items: center; gap: 10px; padding: 10px 18px; background: #000000; color: white; text-decoration: none; border-radius: 10px; font-weight: 600; transition: all 0.3s;">
+                    <span style="font-size: 22px;"> </span>
+                    <div>
+                        <div style="font-size: 11px; opacity: 0.9;">Скачать для</div>
+                        <div style="font-size: 15px;">iOS (iPhone)</div>
+                    </div>
+                </a>
+
+                <!-- ПК (Веб-версия) -->
+                <a href="https://max.ru"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   style="display: flex; align-items: center; gap: 10px; padding: 10px 18px; background: #2196F3; color: white; text-decoration: none; border-radius: 10px; font-weight: 600; transition: all 0.3s;">
+                    <span style="font-size: 22px;"> </span>
+                    <div>
+                        <div style="font-size: 11px; opacity: 0.9;">Открыть</div>
+                        <div style="font-size: 15px;">Веб-версию</div>
+                    </div>
+                </a>
+
+                <!-- RuStore (российский магазин) -->
+                <a href="https://www.rustore.ru/catalog/app/ru.mail.max"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   style="display: flex; align-items: center; gap: 10px; padding: 10px 18px; background: #FF5722; color: white; text-decoration: none; border-radius: 10px; font-weight: 600; transition: all 0.3s;">
+                    <span style="font-size: 22px;">🇷🇺</span>
+                    <div>
+                        <div style="font-size: 11px; opacity: 0.9;">Скачать в</div>
+                        <div style="font-size: 15px;">RuStore</div>
+                    </div>
+                </a>
+            </div>
+
+            <p style="text-align: center; font-size: 14px; color: #666; margin-top: 15px;">
+                Учебные чаты и контакты уже там.<br>
+                Используйте номер телефона из Сферума
+            </p>
 
         </div>
     </div>
@@ -235,7 +322,7 @@
                 </p>
 
                 <p>
-                    📞 (383) 33-88-651
+                     (383) 33-88-651
                 </p>
             </div>
 
@@ -277,7 +364,7 @@
 
             <div>
                 <a href="/admin" class="admin-link">
-                    🔐 Вход для администратора
+                     Вход для администратора
                 </a>
             </div>
 

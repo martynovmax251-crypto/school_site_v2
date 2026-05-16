@@ -8,10 +8,10 @@
 
 <div class="filters">
     <a href="?{% if search_query %}search={{ search_query }}&{% endif %}" class="filter-btn {% if not current_category %}active{% endif %}">Все</a>
-    <a href="?category=announcement{% if search_query %}&search={{ search_query }}{% endif %}" class="filter-btn {% if current_category == 'announcement' %}active{% endif %}">📢 Объявления</a>
-    <a href="?category=event{% if search_query %}&search={{ search_query }}{% endif %}" class="filter-btn {% if current_category == 'event' %}active{% endif %}">🎉 Мероприятия</a>
-    <a href="?category=safety{% if search_query %}&search={{ search_query }}{% endif %}" class="filter-btn {% if current_category == 'safety' %}active{% endif %}">🛡️ Профилактика</a>
-    <a href="?category=exams{% if search_query %}&search={{ search_query }}{% endif %}" class="filter-btn {% if current_category == 'exams' %}active{% endif %}">📚 ВПР/ГТО</a>
+    <a href="?category=announcement{% if search_query %}&search={{ search_query }}{% endif %}" class="filter-btn {% if current_category == 'announcement' %}active{% endif %}"> Объявления</a>
+    <a href="?category=event{% if search_query %}&search={{ search_query }}{% endif %}" class="filter-btn {% if current_category == 'event' %}active{% endif %}"> Мероприятия</a>
+    <a href="?category=safety{% if search_query %}&search={{ search_query }}{% endif %}" class="filter-btn {% if current_category == 'safety' %}active{% endif %}"> Профилактика</a>
+    <a href="?category=exams{% if search_query %}&search={{ search_query }}{% endif %}" class="filter-btn {% if current_category == 'exams' %}active{% endif %}"> ВПР/ГТО</a>
 
     <form method="get" class="search-form-inline">
         <input type="text" name="search" placeholder="Поиск..." value="{{ search_query }}">
